@@ -11,8 +11,8 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<TelaInicial />} />
-                <Route path="/signup" element={<TelaCadastro />} />
-                <Route path="/signin" element={<TelaLogin />} />
+                <Route path="/sign-up" element={<TelaCadastro />} />
+                <Route path="/sign-in" element={<TelaLogin />} />
             </Routes>
         </BrowserRouter> 
     );

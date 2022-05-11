@@ -35,7 +35,7 @@ function TelaLogin() {
                 <Paragrafo conteudo="Não possui conta? Faça seu cadastro!" />
             </Link>
         </Container>
-     );
+    );
 }
 
 export default TelaLogin;

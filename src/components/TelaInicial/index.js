@@ -1,4 +1,5 @@
 import Categoria from "../Categoria/index.js";
+
 import { Container, Main } from "./style.js";
 
 function TelaInicial() {
