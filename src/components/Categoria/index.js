@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function Categoria(props) {
     const { dados, categoria } = props;
     console.log(dados);
@@ -10,12 +12,14 @@ function Categoria(props) {
                     dados.map(produto=>{
                         const { image, name, price, _id } = produto;
                         return(
-                            <div key={_id} className="produto">
-                                <img src={image} alt="produto" />
-                                <p>{name}</p>
-                                <strong>{price}</strong>
-                            </div>
-                        )
+                            <Link to={`/products/${_id}`}>
+                                <div className="produto">
+                                    <img src={image} alt="produto" />
+                                    <p>{name}</p>
+                                    <strong>{price}</strong>
+                                </div>
+                            </Link>
+                        );
                     })
                 }
             </div>

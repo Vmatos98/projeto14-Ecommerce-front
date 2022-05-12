@@ -43,10 +43,10 @@ function TelaCadastro() {
             } , 1000);
         }   
         catch (error) {
-            setDisabled(false);
-            setLoading(false);
             setTimeout(() => {
                 swal(`Erro ao realizar o cadastro. Status: ${error.response.status}`);
+                setDisabled(false);
+                setLoading(false);
                 limparDados();
             } , 500);
         }
