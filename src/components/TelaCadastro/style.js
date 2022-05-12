@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import './font.css';
 
 export const Container = styled.section`
     width: 100%;
@@ -8,10 +9,25 @@ export const Container = styled.section`
     left: 0;
     font-family: 'Roboto', sans-serif;
     background-color: rgba(255,100,14,.5);
-    margin-top: 12vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+
+    .title{
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 23px;
+        letter-spacing: 0.02em;
+        color: #FFFFFF;
+        font-family: 'Bebas Neue', cursive;
+        text-transform: uppercase;
+    }
     
     .inputs, .botao{
         padding: 0 23px;

@@ -71,6 +71,7 @@ function TelaCadastro() {
 
     return ( 
         <Container>
+            <Paragrafo conteudo="Eletrônicos Marba" classe="title" />
             <form onSubmit={enviarCadastroUsuario}>
                 <div className="inputs">
                     <input type="text" placeholder={arrayInputs[0]} value={dadosCadastro.name} 

@@ -12,7 +12,7 @@ const Container = styled.section`
 
     header{
         width: 100%;
-        height: 50px;
+        height: 10vh;
         background-color: green;
         text-align: center;
     }

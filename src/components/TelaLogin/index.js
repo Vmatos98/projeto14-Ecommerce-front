@@ -67,6 +67,7 @@ function TelaLogin() {
 
     return ( 
         <Container>
+            <Paragrafo conteudo="Eletrônicos Marba" classe="title" />
             <form onSubmit={enviarLoginUsuario}>
                 <div className="inputs">
                     <input type="email" placeholder={arrayInputs[0]} value={dadosLogin.email} 
