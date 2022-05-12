@@ -1,30 +1,23 @@
 function Categoria(props) {
-    const { categoria, valor, descricao, imagem } = props;
+    const { dados, categoria } = props;
+    console.log(dados);
     return ( 
         <section>
                         
             <h1>{categoria}</h1>
             <div className="produtos">
-                <div className="produto">
-                    <img src={imagem} alt="produto" />
-                    <p>{descricao}</p>
-                    <strong>{valor}</strong>
-                </div>
-                <div className="produto">
-                    <img src={imagem} alt="produto" />
-                    <p>{descricao}</p>
-                    <strong>{valor}</strong>
-                </div>
-                <div className="produto">
-                    <img src={imagem} alt="produto" />
-                    <p>{descricao}</p>
-                    <strong>{valor}</strong>
-                </div>
-                <div className="produto">
-                    <img src={imagem} alt="produto" />
-                    <p>{descricao}</p>
-                    <strong>{valor}</strong>
-                </div>
+                {
+                    dados.map(produto=>{
+                        const { image, name, price, _id } = produto;
+                        return(
+                            <div key={_id} className="produto">
+                                <img src={image} alt="produto" />
+                                <p>{name}</p>
+                                <strong>{price}</strong>
+                            </div>
+                        )
+                    })
+                }
             </div>
 
         </section>

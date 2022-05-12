@@ -29,6 +29,30 @@ const Main = styled.main`
         background-color: aqua;
         text-align: center;
     }
+    
+    aside{
+        width: 100%;
+        height: calc(100vh - 50px - 90px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p{
+            width: 100%;
+            height: 120px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255,100,14,.5);
+            color: #FFFAFA;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 23px;
+            letter-spacing: 0.01em; 
+        }
+    }
 
     nav{
         width: 100%;
@@ -62,8 +86,9 @@ const Main = styled.main`
                 margin-top: 10px;
                 padding: 0 7px;
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
-                overflow-x: scroll;
+                justify-content: center;
 
                 .produto{
                     min-width: 130px;
@@ -75,7 +100,7 @@ const Main = styled.main`
                     flex-direction: column;
                     justify-content: space-around;
                     align-items: center;
-                    margin: 0 3px;
+                    margin: 4px;
 
                     img{
                         width: 100%;

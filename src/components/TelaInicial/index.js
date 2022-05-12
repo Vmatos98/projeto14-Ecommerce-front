@@ -1,24 +1,50 @@
+import { useState, useEffect } from "react"; 
+import axios from "axios";
+
 import Categoria from "../Categoria/index.js";
+import Paragrafo from "../utils/Paragrafo.js";
 
 import { Container, Main } from "./style.js";
 
 function TelaInicial() {
+    const [produtosBanco, setProdutosBanco] = useState([]);
+
+    async function getProdutosMongo() {
+        try {
+            const response = await axios.get("http://localhost:5000/products");
+            setProdutosBanco(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(()=>{
+        getProdutosMongo();
+    }, []);
+
+    const televisores = produtosBanco.filter(produto => produto.category === "televisores");
+    const eletrodomesticos = produtosBanco.filter(produto => produto.category === "eletrodomesticos");
+    const smartphones = produtosBanco.filter(produtos => produtos.category === "smartphone");
+
     return ( 
         <Container>
             <header>topo</header>
             <Main>
                 <div className="promocao">Slides/scroll de produtos</div>
                 
-                <nav>
-                    <Categoria categoria="Televisores" descricao={`Televisão 32"`} valor="399,99"
-                    imagem="https://s2.glbimg.com/-wID7sAoKeObvlmg3AO4e2_FlKQ=/0x0:695x463/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2021/I/X/4Db2rOT0mMsJuJtQqnSw/2015-08-04-led-tv1.jpg"/>
-                    
-                    <Categoria categoria="Smartphones" descricao={"Samsung"} valor="699,99" 
-                    imagem="https://a-static.mlcdn.com.br/1500x1500/smartphone-samsung-galaxy-a32-128gb-violeta-4g-4gb-ram-tela-64-cam-quadrupla-selfie-20mp/magazineluiza/155624100/1595344320db4b74ffa559fcb01a992c.jpg"/>
-                    
-                    <Categoria categoria="Eletrodomésticos" descricao={"AirFryer"} valor="499,99" 
-                    imagem="https://cf.shopee.com.br/file/6368825c0d075859aff6ad07de37e22c"/>
-                </nav>
+                    {produtosBanco.length > 0 ? 
+                        <nav>
+                            <Categoria dados={televisores} categoria="Televisores" />
+                            
+                            <Categoria dados={smartphones} categoria="Smatphones" />
+                            
+                            <Categoria dados={eletrodomesticos} categoria="Eletrodomésticos" /> 
+                        </nav>
+                        : 
+                        <aside>
+                            <Paragrafo conteudo="E-commerce em manutenção, volte novamente mais tarde!" />
+                        </aside>
+                    }
             </Main>
         </Container> 
     );

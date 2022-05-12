@@ -31,7 +31,7 @@ function TelaLogin() {
                     <Botao tipo="submit" conteudo="Entrar" />
                 </div>
             </form>
-            <Link to="/signup">
+            <Link to="/sign-up">
                 <Paragrafo conteudo="Não possui conta? Faça seu cadastro!" />
             </Link>
         </Container>
