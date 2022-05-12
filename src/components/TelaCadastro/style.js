@@ -54,7 +54,7 @@ export const Container = styled.section`
             button{
                 width: 100%;
                 height: 46px;
-                background-color: rgba(255,100,14,.5);
+                background-color: rgba(255,100,14,.6);
                 border-radius: 5px;
                 font-weight: 700;
                 font-size: 20px;
