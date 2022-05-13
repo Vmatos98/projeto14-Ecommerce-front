@@ -22,6 +22,7 @@ const Main = styled.main`
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
+        margin-top: 12vh;
 
         a{
             width: 100%;
