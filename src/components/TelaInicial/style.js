@@ -86,7 +86,7 @@ const Main = styled.main`
         
         strong{
             width: 100%;
-            height: 30px;
+            height: 35px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -95,6 +95,12 @@ const Main = styled.main`
             line-height: 18px;
             color: #FFFFFF;
             margin-top: 30px;
+            background-color: rgba(255,100,14,.6);
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 23px;
+
         }
 
         p{
@@ -104,7 +110,7 @@ const Main = styled.main`
             justify-content: center;
             align-items: center;
             color: #FFFFFF;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 500;
             text-align: center;
             line-height: 23px;

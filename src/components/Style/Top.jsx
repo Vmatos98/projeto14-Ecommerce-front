@@ -8,7 +8,7 @@ export const Header = styled.header`
     z-index: 2;
     background-color: white;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     border-bottom: 1px solid #ccc;
     img{

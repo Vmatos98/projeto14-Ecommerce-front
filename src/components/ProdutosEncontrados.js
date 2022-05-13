@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 
 function ProdutosEncontrados(props) {
     const { dados } = props;
+    console.log(dados);
     return ( 
         <div className="produtos">
             {
-                dados.length > 0 ?
+                typeof(dados) === 'object' && dados.length > 0 ?
                 dados.map((produto, index)=>{
                     const { image, name, price, _id } = produto;
                     return(
@@ -21,7 +22,7 @@ function ProdutosEncontrados(props) {
                 : 
                 <div className="nao-encontrados">
                     <p>Não encontrados produtos com este filtro em nosso banco de dados</p>
-                    <strong>Voltar para home</strong>
+                    <strong>Clique no ícone de pesquisar</strong>
                 </div>
             }
         </div> 

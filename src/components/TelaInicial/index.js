@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react"; 
 import axios from "axios";
+import swal from "sweetalert";
 
 import Categoria from "../Categoria/index.js";
 import Paragrafo from "../utils/Paragrafo.js";
@@ -21,6 +22,7 @@ function TelaInicial() {
             setProdutosBanco(response.data);
         } catch (error) {
             console.log(error);
+            swal('Erro ao carregar produtos do banco de dados');
         }
     }
 
@@ -31,7 +33,6 @@ function TelaInicial() {
     const televisores = produtosBanco.filter(produto => produto.category === "televisores");
     const eletrodomesticos = produtosBanco.filter(produto => produto.category === "eletrodomesticos");
     const smartphones = produtosBanco.filter(produtos => produtos.category === "smartphone");
-    const filtro = produtosBanco.filter(produto => produto.name.includes(filtroPesquisa));
 
     return ( 
         <Container>
@@ -63,7 +64,7 @@ function TelaInicial() {
                     </div>
                     <nav>
                         <section>
-                            <ProdutosEncontrados dados={filtro}/>
+                            <ProdutosEncontrados dados={filtroPesquisa}/>
                         </section>
                     </nav>
                 </Main>
