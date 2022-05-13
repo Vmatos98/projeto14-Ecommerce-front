@@ -7,22 +7,26 @@ import TelaCadastro from './TelaCadastro';
 import TelaLogin from './TelaLogin';
 
 import ContextFiltroPesquisa from '../context/filtroPesquisa.js';
+import ContextTokenUsuario from '../context/tokenUsuario.js';
 
 import './../Assets/reset.css';
 
 function App() {
     const [filtroPesquisa, setFiltroPesquisa] = useState(null);
+    const [token, setToken] = useState(null);
 
     return ( 
-        <ContextFiltroPesquisa.Provider value={{filtroPesquisa, setFiltroPesquisa}}>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<TelaInicial />} />
-                    <Route path="/sign-up" element={<TelaCadastro />} />
-                    <Route path="/sign-in" element={<TelaLogin />} />
-                </Routes>
-            </BrowserRouter> 
-        </ContextFiltroPesquisa.Provider>
+        <ContextTokenUsuario.Provider value={{token, setToken}}>
+            <ContextFiltroPesquisa.Provider value={{filtroPesquisa, setFiltroPesquisa}}>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<TelaInicial />} />
+                        <Route path="/sign-up" element={<TelaCadastro />} />
+                        <Route path="/sign-in" element={<TelaLogin />} />
+                    </Routes>
+                </BrowserRouter> 
+            </ContextFiltroPesquisa.Provider>
+        </ContextTokenUsuario.Provider>
     );
 }
 

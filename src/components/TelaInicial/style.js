@@ -14,6 +14,7 @@ const Container = styled.section`
 const Main = styled.main`
     width: 100%;
     height: auto;
+    margin-top: 12vh;
     
     .navegacao{
         width: 100%;
@@ -22,7 +23,6 @@ const Main = styled.main`
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
-        margin-top: 12vh;
 
         a{
             width: 100%;
@@ -83,6 +83,15 @@ const Main = styled.main`
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
+        @keyframes neon{
+            from{
+                filter: drop-shadow(0 0 10px #ff3366);
+            }
+            to{
+                filter: drop-shadow(0 0 40px red);
+            }
+        }
         
         strong{
             width: 100%;
@@ -100,7 +109,7 @@ const Main = styled.main`
             font-weight: 700;
             font-size: 18px;
             line-height: 23px;
-
+            animation: neon 3s alternate infinite ease-in-out;
         }
 
         p{
@@ -232,6 +241,66 @@ const Main = styled.main`
                 }
             }
         }
+    }
+
+    @media (min-width: 768px){
+        nav{
+            margin-bottom: 70px;
+        }
+
+        nav section {
+            margin-top: 35px;
+
+            h1{
+                min-height: 40px;
+                font-size: 24px;
+            }
+
+            .produtos{
+                padding: 0 15px;
+                margin-top: 24px;
+            }
+
+            .produtos .produto{
+                min-width: 170px;
+                min-height: 200px;
+    
+                img{
+                    width: 90%;
+                    height: 100px;
+                }
+    
+                p, strong{
+                    padding: 0 10px;
+                    font-size: 22px;
+                    height: 30px;
+                    line-height: 20px;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+
+        .navegacao{
+            height: 170px;
+        }
+
+        .pesquisa-produtos p{
+            height: 50px;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        .nao-encontrados {
+            p{
+                font-size: 24px;
+            }
+
+            strong{
+                font-size: 22px;
+                height: 45px;
+            }
+        }   
     }
 `;
 

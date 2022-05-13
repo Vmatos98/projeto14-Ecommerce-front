@@ -56,9 +56,9 @@ function Top(){
     
     return (
         <Header>
-            <img src={Logo} alt="Logo" />
+            <img src={Logo} alt="Logo" onClick={()=>{setFiltroPesquisa(null)}}/>
             <Search>
-                <input type="text" name="input" placeholder="pesquisar" value={search} 
+                <input type="text" name="input" placeholder="Pesquisar" value={search} 
                 onChange={(e)=>{
                     setSearch(e.target.value); setFiltroPesquisa(e.target.value);
                 }} />

@@ -1,11 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert';
 import { ThreeDots } from 'react-loader-spinner';
 
 import Paragrafo from '../utils/Paragrafo.js';
 import Botao from '../utils/Botao.js';
+
+import ContextTokenUsuario from '../../context/tokenUsuario.js';
 
 import { Container } from "../TelaCadastro/style.js";
 
@@ -17,6 +19,7 @@ function TelaLogin() {
     const [loading, setLoading] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
+    const { setToken } = useContext(ContextTokenUsuario);
 
     console.log(dadosLogin); //apagar
 
@@ -32,7 +35,10 @@ function TelaLogin() {
             email: dadosLogin.email.trim(),
             password: dadosLogin.password
         };
-        await axios.post('http://localhost:5000/sign-in', objetoLogin);
+        const response = await axios.post('http://localhost:5000/sign-in', objetoLogin);
+        
+        setToken(response.data);
+        localStorage.setItem('token', response.data);
         swal('Login realizado com sucesso');
         setTimeout(() => {
             limparDados();
