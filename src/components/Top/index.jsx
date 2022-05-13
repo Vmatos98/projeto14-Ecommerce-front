@@ -17,6 +17,7 @@ function Top(){
             const getAmount = async() =>{
                 const response = await axios.get(`${URL}/cart/amount/${cartId}`);
                 setAmount(response.data);
+
             }
             if(!cartId){
                 createCart();

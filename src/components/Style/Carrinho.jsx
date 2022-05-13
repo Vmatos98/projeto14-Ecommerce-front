@@ -21,11 +21,19 @@ export const Header = styled.header`
         font-weight: bold;
         color: #333;
     }
-
+    @media (max-width: 614px){
+        h1{
+            font-size: 18px;
+        }
+    }
 `;
 
 export const Button = styled.button`
-    /* width: 100px; */
+    /* width: auto; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
     height: 30px;
     border: none;
     background: #55b855;
@@ -39,15 +47,64 @@ export const Carrinho = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    /* padding: 10px; */
     border-bottom: 1px solid #ccc;
-    div{
+    table{
+        /* display: flex;
+        justify-content: space-between;
+        align-items: center; */
+        width: 100%;
+    }
+    tr{
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+    td{
+        width: 20%;
+        display: flex;
+        justify-content:flex-end;
+        align-items: center;
+    }
+    td.itens{
+        width: 40%;
+        justify-content: space-around;
     }
     h1.itens{
         width: 50%;
+    }
+    p.name{
+        /* width: calc(50% - 50px); */
+        /* width: 50%; */
+        /* background: green; */
+    }
+    p{
+        font-size: 14px;
+    }
+    img{
+        width: 80px;
+        
+    }
+    @media (max-width: 614px){
+        p{
+        font-size: 11px;
+        }
+        h1{
+        font-size: 13px;
+        font-weight: bold;
+        color: #333;
+        }
+        img{
+        width: 50px;
+        }
+        td{
+        width: 20%;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        }
     }
     `;
