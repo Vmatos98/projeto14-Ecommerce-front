@@ -4,6 +4,7 @@ import axios from "axios";
 import Categoria from "../Categoria/index.js";
 import Paragrafo from "../utils/Paragrafo.js";
 import ProdutosEncontrados from "../ProdutosEncontrados.js";
+// import Top from '../Top/index.jsx';
 
 import ContextFiltroPesquisa from "../../context/filtroPesquisa.js";
 
@@ -34,7 +35,7 @@ function TelaInicial() {
 
     return ( 
         <Container>
-            <header>topo</header>
+            {/* <Top /> */}
             {
                 !filtroPesquisa ? 
                 <Main>

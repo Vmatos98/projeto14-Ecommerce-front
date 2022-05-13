@@ -9,13 +9,6 @@ const Container = styled.section`
     font-family: 'Roboto', sans-serif;
     background-color: rgba(255,100,14,.5);
     overflow-y: scroll;
-
-    header{
-        width: 100%;
-        height: 10vh;
-        background-color: green;
-        text-align: center;
-    }
 `;
 
 const Main = styled.main`
