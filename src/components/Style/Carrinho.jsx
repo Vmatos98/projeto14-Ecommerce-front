@@ -73,6 +73,14 @@ export const Carrinho = styled.div`
         width: 40%;
         justify-content: space-around;
     }
+    td.delete{
+        width: 5%;
+        /* background: red;
+        color: white; */
+        border-radius: 5px;
+        
+
+    }
     h1.itens{
         width: 50%;
     }
@@ -81,12 +89,21 @@ export const Carrinho = styled.div`
         /* width: 50%; */
         /* background: green; */
     }
+    p.delete{
+        color: #aaa;
+        cursor: pointer;
+    }
     p{
         font-size: 14px;
     }
     img{
         width: 80px;
         
+    }
+    input{
+        width: 50px;
+        height: 30px;
+        border: none;
     }
     @media (max-width: 614px){
         p{
@@ -107,4 +124,13 @@ export const Carrinho = styled.div`
         align-items: center;
         }
     }
+    `;
+    export const Footer = styled.div`
+        
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background: #8cc38c;
+        
     `;
