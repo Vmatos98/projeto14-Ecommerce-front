@@ -87,7 +87,7 @@ function Cart(){
             </Carrinho>
             <Footer>
                 <div>
-                    <p>Total: R$ {productsCart.reduce((total, product) => total + product.value * product.amount, 0).toFixed(2)}</p>
+                    <p>Total: R$ {productsCart.reduce((total, product) => total + product.price * product.amount, 0).toFixed(2)}</p>
                 </div>
                 
                 <Button onClick={()=>{finish()}}>Finalizar compra</Button>
