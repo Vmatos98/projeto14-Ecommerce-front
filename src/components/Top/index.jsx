@@ -1,11 +1,11 @@
 // import { useState, useEffect} from "react";
-import axios from "axios";
-
 import { useState, useContext } from "react";
 import { Header, Search, User } from "./../Style/Top";
-import Logo from "../../Assets/img/logoPrincipal.jpg";
-import ContextFiltroPesquisa from "../../context/filtroPesquisa";
+import axios from "axios";
 import swal from "sweetalert";
+
+import ContextFiltroPesquisa from "../../context/filtroPesquisa";
+import Logo from "../../Assets/img/logoPrincipal.jpg";
 
 function Top(){
     const { filtroPesquisa, setFiltroPesquisa } = useContext(ContextFiltroPesquisa);
@@ -31,7 +31,7 @@ function Top(){
 
     //         getAmount();
     // }, []);
-    console.log(filtroPesquisa);
+    console.log(filtroPesquisa); //apagar
 
     async function getProdutosFiltrados(){
         try {
@@ -66,11 +66,11 @@ function Top(){
             </Search>
             <User>
                 <div>
-                <ion-icon name="cart-outline"></ion-icon>
-                <p>{0}</p>
+                    <ion-icon name="cart-outline"></ion-icon>
+                    <p>{0}</p>
                 </div>
                 <div>
-                <ion-icon name="person-circle-outline"></ion-icon>
+                    <ion-icon name="person-circle-outline"></ion-icon>
                 </div>
             </User>
         </Header>
