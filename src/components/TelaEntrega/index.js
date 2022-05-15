@@ -23,6 +23,8 @@ function TelaDadosEntrega() {
         setLoading(true);
         console.log(dadosCheckout);
 
+        localStorage.setItem('dadosCheckout', JSON.stringify(dadosCheckout));
+
         //garantir que todos os campos estão preenchidos
         //salvar no localStorage
         //get dos produtos do carrinho e valor total

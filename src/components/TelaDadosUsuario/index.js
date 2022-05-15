@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
+import axios from 'axios';
 import swal from 'sweetalert';
 
 import Paragrafo from '../utils/Paragrafo.js';
@@ -23,16 +24,31 @@ function TelaFinalizacao() {
         });
     }
 
-    function avancarParaEntrega(e) {
-        e.preventDefault();
+    async function carregarDadosCarrinho() {
         setDisabled(true);
         setLoading(true);
 
-        //salvar dados do usuário no localStorage por garantia
+        try {
+            const response = await axios.get(`http://localhost:5000/chechout/cart/`); //http://localhost:5000/chechout/cart/${id}
+            setDadosCheckout({...dadosCheckout, products: response.data});
+        } catch (error) {
+            swal('Erro ao carregar dados do carrinho');
+            setTimeout(() => {
+                navigate('/');
+                setDisabled(false);
+                setLoading(false);
+            }, 500);
+        }
+    }
+
+    function avancarParaEntrega(e) {
+        e.preventDefault();
 
         const { cpf, phone, typePayment } = dadosCheckout;
         if(cpf && phone && typePayment) {
+            carregarDadosCarrinho();
             setTimeout(() => {
+                localStorage.setItem('dadosCheckout', JSON.stringify(dadosCheckout));
                 navigate('/checkout/delivery');
             }, 800);
         }else{
