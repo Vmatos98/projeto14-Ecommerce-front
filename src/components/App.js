@@ -14,7 +14,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<TelaInicial />} />
                 <Route path="/carrinho" element={<Cart />} />
-                <Route path="/produto" element={<ProductScreen />} />
+                <Route path="/produto/:id" element={<ProductScreen />} />
             </Routes>
         </BrowserRouter> 
     );
