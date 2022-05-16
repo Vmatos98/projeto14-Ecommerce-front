@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -15,7 +16,7 @@ function ProductScreen(){
     useEffect(() => {
         const getData = async() =>{
             try{
-            const response = await axios.get(`http://localhost:5000/products/${id}`); ///products/:id
+            const response = await axios.get(`https://ecommerce-back-driven.herokuapp.com/products/${id}`); ///products/:id
             setProduct(response.data);
             console.log(response.data);
             }catch(err){
