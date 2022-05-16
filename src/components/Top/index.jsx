@@ -1,17 +1,43 @@
-// import { useState, useEffect} from "react";
-import { useState, useContext } from "react";
-import { Header, Search, User } from "./../Style/Top";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import swal from "sweetalert";
 
 import ContextFiltroPesquisa from "../../context/filtroPesquisa";
+
+import { Header, Search, User } from "./../Style/Top";
 import Logo from "../../Assets/img/logoPrincipal.jpg";
 
 function Top(){
+    const navigate = useNavigate();
     const { filtroPesquisa, setFiltroPesquisa } = useContext(ContextFiltroPesquisa);
 
     const URL = 'http://localhost:5000';
     const [search, setSearch] = useState('');
+    const [amount, setAmount] = useState('');
+    const cartId = localStorage.getItem("cartId");
+    
+    useEffect(() => {
+        const createCart = async() =>{
+            try{
+            const response = await axios.post(`${URL}/cart/create`);
+            localStorage.setItem("cartId", response.data);
+            }catch(err){
+                console.log(err);
+            }
+        }
+        const getAmount = async() =>{
+            const response = await axios.get(`${URL}/cart/amount/${cartId}`);
+            setAmount(response.data);
+        }
+        if(!cartId){
+            createCart();
+        }
+        getAmount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    // document.location.reload(true);
     // const cartId = localStorage.getItem("cartId");
     // const [amount, setAmount] = useState('');
     // useEffect(() => {
@@ -54,6 +80,10 @@ function Top(){
         }
     }
     
+    function cart(){
+        navigate("/carrinho");
+    }
+
     return (
         <Header>
             <img src={Logo} alt="Logo" onClick={()=>{setFiltroPesquisa(null)}}/>
@@ -66,8 +96,8 @@ function Top(){
             </Search>
             <User>
                 <div>
-                    <ion-icon name="cart-outline"></ion-icon>
-                    <p>{0}</p>
+                    <ion-icon name="cart-outline" onClick={()=>cart()}></ion-icon>
+                    <p>{amount}</p>
                 </div>
                 <div>
                     <ion-icon name="person-circle-outline"></ion-icon>
