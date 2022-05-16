@@ -11,14 +11,17 @@ import ContextFiltroPesquisa from "../../context/filtroPesquisa.js";
 import { Container, Main } from "./style.js";
 import TelaLoading from "../Loading/index.js";
 
+// import dotenv from "dotenv";
+// dotenv.config();
+
 function TelaInicial() {
+    const URL = 'http://localhost:5000';
     const [produtosBanco, setProdutosBanco] = useState([]);
     const { filtroPesquisa } = useContext(ContextFiltroPesquisa);
-    console.log(filtroPesquisa); //apagar
 
     async function getProdutosMongo() {
         try {
-            const response = await axios.get("https://ecommerce-back-driven.herokuapp.com/products");
+            const response = await axios.get(`${URL}/products`);
             setProdutosBanco(response.data);
         } catch (error) {
             console.log(error);
@@ -28,6 +31,7 @@ function TelaInicial() {
 
     useEffect(()=>{
         getProdutosMongo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const televisores = produtosBanco.filter(produto => produto.category === "televisores");

@@ -1,13 +1,16 @@
 import { useState, useEffect} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 import {Section, Header, Button, Carrinho,Footer} from "./../Style/Carrinho";
 import Top from "../Top";
-import swal from "sweetalert";
+
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 function Cart(){
-    const URL = 'https://ecommerce-back-driven.herokuapp.com';
+    const URL = 'http://localhost:5000';
     const cartId = localStorage.getItem("cartId");
     const [productsCart, setProductsCart] = useState([]);
     const [amount, setAmount] = useState({});
@@ -20,6 +23,7 @@ function Cart(){
             setProductsCart(response.data);
             }catch(err){
                 console.log(err);
+                swal('Erro ao carregar dados do carrinho');
             }
         }
         getData();
@@ -38,6 +42,7 @@ function Cart(){
             setProductsCart(response.data);
             }catch(err){
                 console.log(err);
+                swal('Erro ao carregar dados do carrinho');
             }
         }
         newValue();
@@ -90,15 +95,16 @@ function Cart(){
                         <td><h1>Quant.</h1></td>
                         <td><h1>Total</h1></td>
                         <td className="delete"></td></tr>
-                        {console.log(productsCart)}
                         { 
                             productsCart.map(product => (
-                                <tr><td className="itens"> <img src={product.image} alt=""/>
-                                <p className="name">{product.name}</p></td>
-                                <td><p>R$ {product.price}</p></td>
-                                <td><input type="number" value={product.amount} onChange={e=>newAmount(e.target.value, product._id)} /></td>
-                                <td><p>R$ {(product.amount * product.price).toFixed(2)}</p></td>
-                                <td className="delete"><p className="delete" onClick={()=>removeItem(product._id)}>x</p></td></tr> 
+                                <tr key={product._id}>
+                                    <td className="itens"> <img src={product.image} alt=""/>
+                                    <p className="name">{product.name}</p></td>
+                                    <td><p>R$ {product.price}</p></td>
+                                    <td><input type="number" value={product.amount} onChange={e=>newAmount(e.target.value, product._id)} /></td>
+                                    <td><p>R$ {(product.amount * product.price).toFixed(2)}</p></td>
+                                    <td className="delete"><p className="delete" onClick={()=>removeItem(product._id)}>x</p></td>
+                                </tr> 
                             ))
                         }
                     </table>

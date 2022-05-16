@@ -3,7 +3,7 @@ import TelaLoading from './Loading';
 
 function ProdutosEncontrados(props) {
     const { dados } = props;
-    console.log(dados);
+
     return ( 
         <div className="produtos">
             {

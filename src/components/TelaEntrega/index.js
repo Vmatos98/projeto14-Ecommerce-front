@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
@@ -11,12 +11,24 @@ import Botao from '../utils/Botao.js';
 import { ThreeDots } from 'react-loader-spinner';
 import { Container } from './../TelaCadastro/style.js';
 
+// import dotenv from 'dotenv';
+// dotenv.config();
+
 function TelaDadosEntrega() {
+    const URL = 'http://localhost:5000';
     const arrayInputs = ['Rua', 'Cidade', 'Estado', 'País','CEP'];
     const { dadosCheckout, setDadosCheckout } = useContext(ContextDadosCheckout);
     const [loading, setLoading] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if(!localStorage.getItem('token') || !localStorage.getItem('cartId') || !dadosCheckout.products){
+            swal('Você não está logado!');
+            navigate('/');
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     function limparDados() {
         setDadosCheckout({
@@ -52,7 +64,7 @@ function TelaDadosEntrega() {
                     total: localStorage.getItem('total'),
                 }
     
-                await axios.post('https://ecommerce-back-driven.herokuapp.com/checkout', objetoFinal, {
+                await axios.post(`${URL}/checkout`, objetoFinal, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -67,8 +79,12 @@ function TelaDadosEntrega() {
             } catch (error) {
                 swal('Erro ao realizar a compra!');
                 setTimeout(() => {
-                    refreshDados();
-                    navigate('/checkout');
+                    if(error.response.status === 422){
+                        setDadosCheckout({...dadosCheckout, cpf: '', phone: '', cep: ''});
+                    }else{
+                        refreshDados();
+                        navigate('/checkout');
+                    }
                 } , 800);
             }
         }
@@ -80,7 +96,6 @@ function TelaDadosEntrega() {
         setLoading(true);
 
         const { street, city, state, country, cep } = dadosCheckout;
-        console.log(street, city, state, country, cep);
 
         if(street && city && state && country && cep){
             if(localStorage.getItem('token')){
@@ -102,8 +117,6 @@ function TelaDadosEntrega() {
             } , 800);
         }
     }
-    
-    console.log(dadosCheckout); //apagar
 
     return ( 
         <Container>

@@ -8,11 +8,14 @@ import ContextFiltroPesquisa from "../../context/filtroPesquisa";
 import { Header, Search, User } from "./../Style/Top";
 import Logo from "../../Assets/img/logoPrincipal.jpg";
 
+// import dotenv from "dotenv";
+// dotenv.config();
+
 function Top(){
     const navigate = useNavigate();
     const { filtroPesquisa, setFiltroPesquisa } = useContext(ContextFiltroPesquisa);
 
-    const URL = 'https://ecommerce-back-driven.herokuapp.com';
+    const URL = 'http://localhost:5000';
     const [search, setSearch] = useState('');
     const [amount, setAmount] = useState('');
     const cartId = localStorage.getItem("cartId");
@@ -20,9 +23,10 @@ function Top(){
     useEffect(() => {
         const createCart = async() =>{
             try{
-            const response = await axios.post(`${URL}/cart/create`);
-            localStorage.setItem("cartId", response.data);
+                const response = await axios.post(`${URL}/cart/create`);
+                localStorage.setItem("cartId", response.data);
             }catch(err){
+                swal('Erro ao criar carrinho');
                 console.log(err);
             }
         }
@@ -37,21 +41,17 @@ function Top(){
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    console.log(filtroPesquisa); //apagar
-
     async function getProdutosFiltrados(){
         try {
             if(filtroPesquisa){
                 const response = await axios.get(`${URL}/products?filtro=${filtroPesquisa}`);
                 setFiltroPesquisa(response.data);
                 setSearch('');
-                console.log(response.data);
             }
             if(!filtroPesquisa){
                 const response = await axios.get(`${URL}/products`);
                 setFiltroPesquisa(response.data);
                 setSearch('');
-                console.log(response.data);
             }
         } catch (error) {
             swal('Erro ao filtrar produtos no banco de dados');

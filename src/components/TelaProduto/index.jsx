@@ -2,24 +2,28 @@
 import { useState, useEffect} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import swal from "sweetalert";
 
 import {Section, Header, Category, Content, Description, Button} from "./../Style/Produto";
 import Top from "../Top";
 
+// import dotenv from "dotenv";
+// dotenv.config();
+
 function ProductScreen(){
+    const URL = 'http://localhost:5000';
     const [product, setProduct] = useState({});
     const cartId = localStorage.getItem("cartId");
     const {id} = useParams();
-    console.log(id);
     const navigate = useNavigate();
 
     useEffect(() => {
         const getData = async() =>{
             try{
-            const response = await axios.get(`https://ecommerce-back-driven.herokuapp.com/products/${id}`); ///products/:id
+            const response = await axios.get(`${URL}/products/${id}`); ///products/:id
             setProduct(response.data);
-            console.log(response.data);
             }catch(err){
+                swal('Erro ao carregar dados do produto');
                 console.log(err);
             }
         }
@@ -34,13 +38,13 @@ function ProductScreen(){
             amount: 1,
             image: product.image
         }
-        console.log(product);
         product.amount = 1;
         const getData = async() =>{
             try{
-            await axios.post(`http://localhost:5000/cart/add/${cartId}`, data);
-            document.location.reload(true);
+                await axios.post(`${URL}/cart/add/${cartId}`, data);
+                document.location.reload(true);
             }catch(err){
+                swal('Erro ao adicionar produto ao carrinho');
                 console.log(err);
             }
         }
