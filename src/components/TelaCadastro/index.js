@@ -35,7 +35,7 @@ function TelaCadastro() {
                 password: password,
                 confirmPassword: confirmPassword
             }
-            await axios.post('http://localhost:5000/sign-up', objetoCadastro);
+            await axios.post('https://ecommerce-back-driven.herokuapp.com/sign-up', objetoCadastro);
             swal(`${name}, seu cadastro foi realizado com sucesso`);
             setTimeout(() => {
                 limparDados();

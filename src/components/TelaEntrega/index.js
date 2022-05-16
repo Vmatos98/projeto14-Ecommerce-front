@@ -52,7 +52,7 @@ function TelaDadosEntrega() {
                     total: localStorage.getItem('total'),
                 }
     
-                await axios.post('http://localhost:5000/checkout', objetoFinal, {
+                await axios.post('https://ecommerce-back-driven.herokuapp.com/checkout', objetoFinal, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
