@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert';
 import { ThreeDots } from 'react-loader-spinner';
@@ -20,6 +20,7 @@ function TelaLogin() {
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
     const { setToken } = useContext(ContextTokenUsuario);
+    const [itemCarrinho, setItemCarrinho] = useState(null);
 
     console.log(dadosLogin); //apagar
 
@@ -28,6 +29,15 @@ function TelaLogin() {
             email: '', password: ''
         });
     }
+
+    async function getItemCarrinho(){
+        const response = await axios.get(`http://localhost:5000/cart/amount/${localStorage.getItem('cartId')}`);
+        setItemCarrinho(response.data);
+    }
+
+    useEffect(() => {
+        getItemCarrinho();
+    }, []);
 
     async function postDadosLogin() {
       try {
@@ -42,7 +52,11 @@ function TelaLogin() {
         swal('Login realizado com sucesso');
         setTimeout(() => {
             limparDados();
-            navigate('/');
+            if(itemCarrinho === 0){
+                navigate('/');
+            }else{
+                navigate('/carrinho');
+            }
         } , 1000);
       } catch (error) {
           setTimeout(() => {
@@ -73,7 +87,7 @@ function TelaLogin() {
 
     return ( 
         <Container>
-            <Paragrafo conteudo="Eletrônicos Marba" classe="title" />
+            <Paragrafo conteudo="Eletrônicos Marba" classe="title" click={()=>navigate('/')} />
             <form onSubmit={enviarLoginUsuario}>
                 <div className="inputs">
                     <input type="email" placeholder={arrayInputs[0]} value={dadosLogin.email} 

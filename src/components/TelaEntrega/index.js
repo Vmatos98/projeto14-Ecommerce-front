@@ -24,24 +24,52 @@ function TelaDadosEntrega() {
         });
     }
 
+    function refreshDados(){
+        setDadosCheckout({
+            cpf: '', phone: '', typePayment: '', street: '', city: '', 
+            state: '', country: '', cep: '', total: 0, products: []
+        });
+    }
+
     async function confirmarVendaProdutos(){
-        try {   
-            console.log(dadosCheckout);
-            await axios.post('http://localhost:5000/checkout', dadosCheckout, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+        if(dadosCheckout.products.length === 0 && JSON.parse(localStorage.getItem('products')).length === 0){
+            swal('Seu carrinho está vazio!');
+            setTimeout(()=>{
+                navigate('/');
+            }, 800);
+        }else{
+            try {   
+                const objetoFinal = {
+                    cpf: dadosCheckout.cpf ? dadosCheckout.cpf : localStorage.getItem('cpf'),
+                    phone: dadosCheckout.phone ? dadosCheckout.phone : localStorage.getItem('phone'),
+                    typePayment: dadosCheckout.typePayment ? dadosCheckout.typePayment : localStorage.getItem('typePayment'),
+                    street: dadosCheckout.street ? dadosCheckout.street : localStorage.getItem('street'),
+                    city: dadosCheckout.city ? dadosCheckout.city : localStorage.getItem('city'),
+                    state: dadosCheckout.state ? dadosCheckout.state : localStorage.getItem('state'),
+                    country: dadosCheckout.country ? dadosCheckout.country : localStorage.getItem('country'),
+                    cep: dadosCheckout.cep ? dadosCheckout.cep : localStorage.getItem('cep'),
+                    products: dadosCheckout.products ? dadosCheckout.products : JSON.parse(localStorage.getItem('products')),
+                    total: localStorage.getItem('total'),
                 }
-            });
-            // localStorage.setItem('dadosCheckout', JSON.stringify(dadosCheckout)); //arrumar
-            swal('Compra realizada com sucesso!');
-            setTimeout(() => {
+    
+                await axios.post('http://localhost:5000/checkout', objetoFinal, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                swal('Compra realizada com sucesso!');
+                localStorage.clear();
                 navigate('/');
-            } , 800);
-        } catch (error) {
-            swal('Erro ao realizar a compra!');
-            setTimeout(() => {
-                navigate('/');
-            } , 800);
+                setTimeout(() => {
+                    window.location.reload();
+                } , 800);
+            } catch (error) {
+                swal('Erro ao realizar a compra!');
+                setTimeout(() => {
+                    refreshDados();
+                    navigate('/checkout');
+                } , 800);
+            }
         }
     }
 
@@ -51,8 +79,19 @@ function TelaDadosEntrega() {
         setLoading(true);
 
         const { street, city, state, country, cep } = dadosCheckout;
+        console.log(street, city, state, country, cep);
+
         if(street && city && state && country && cep){
-            confirmarVendaProdutos();
+            if(localStorage.getItem('token')){
+                confirmarVendaProdutos();
+            }else{
+                swal('É preciso estar logado para realizar a compra!');
+                setTimeout(() => {
+                    setDisabled(false);
+                    setLoading(false);
+                    navigate('/sign-in');
+                } , 800);
+            }
         }else{
             swal('Preencha todos os campos!');
             setTimeout(() => {

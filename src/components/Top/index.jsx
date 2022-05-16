@@ -34,29 +34,8 @@ function Top(){
             createCart();
         }
         getAmount();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // document.location.reload(true);
-    // const cartId = localStorage.getItem("cartId");
-    // const [amount, setAmount] = useState('');
-    // useEffect(() => {
-        
-    //         const createCart = async() =>{
-    //             const response = await axios.post(`${URL}/cart/create`);
-    //             localStorage.setItem("cartId", response.data);
-    //         }
-    //         const getAmount = async() =>{
-    //             const response = await axios.get(`${URL}/cart/amount/${cartId}`);
-    //             setAmount(response.data);
-    //         }
-    //         if(!cartId){
-    //             createCart();
-    //             document.location.reload(true);
-    //         }
-
-    //         getAmount();
-    // }, []);
     console.log(filtroPesquisa); //apagar
 
     async function getProdutosFiltrados(){
@@ -86,7 +65,7 @@ function Top(){
 
     return (
         <Header>
-            <img src={Logo} alt="Logo" onClick={()=>{setFiltroPesquisa(null)}}/>
+            <img src={Logo} alt="Logo" onClick={()=>{setFiltroPesquisa(null); navigate('/')}}/>
             <Search>
                 <input type="text" name="input" placeholder="Pesquisar" value={search} 
                 onChange={(e)=>{
@@ -100,7 +79,7 @@ function Top(){
                     <p>{amount}</p>
                 </div>
                 <div>
-                    <ion-icon name="person-circle-outline"></ion-icon>
+                    <ion-icon name="person-circle-outline" onClick={()=>navigate('/sign-in')}></ion-icon>
                 </div>
             </User>
         </Header>

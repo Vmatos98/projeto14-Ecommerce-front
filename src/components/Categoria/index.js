@@ -11,7 +11,7 @@ function Categoria(props) {
                     dados.map((produto, index)=>{
                         const { image, name, price, _id } = produto;
                         return(
-                            <Link to={`/products/${_id}`} key={index}>
+                            <Link to={`/produto/${_id}`} key={index}>
                                 <div className="produto">
                                     <img src={image} alt="produto" />
                                     <p>{name}</p>

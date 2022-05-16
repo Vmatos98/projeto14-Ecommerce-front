@@ -25,14 +25,11 @@ function TelaFinalizacao() {
     }
 
     async function carregarDadosCarrinho() {
-        try {
-            const response = await axios.get(`http://localhost:5000/chechout/cart/`); //http://localhost:5000/chechout/cart/${id}
+        
+        try { 
+            const response = await axios.get(`http://localhost:5000/cart/checkout/${localStorage.getItem('cartId')}`);
             setDadosCheckout({...dadosCheckout, products: response.data});
-            
-            //pegar o total
-            // const total = response.data.reduce((acc, cur) => {
-            //     return acc + cur.price;
-            // }, 0);
+            console.log(response.data);
             
             if(response.data.length === 0){
                 swal('Seu carrinho está vazio!');
@@ -41,7 +38,10 @@ function TelaFinalizacao() {
                 }, 800);
             }else{
                 setTimeout(() => {
-                    //localStorage.setItem('dadosCheckout', JSON.stringify(dadosCheckout)); //arrumar
+                    localStorage.setItem('cpf', dadosCheckout.cpf);
+                    localStorage.setItem('phone', dadosCheckout.phone);
+                    localStorage.setItem('typePayment', dadosCheckout.typePayment);
+                    localStorage.setItem('products', JSON.stringify(dadosCheckout.products));
                     navigate('/checkout/delivery');
                 }, 800);
             }
@@ -66,7 +66,14 @@ function TelaFinalizacao() {
             console.log(upperPayment); //apagar
 
             if(upperPayment === 'DINHEIRO' || upperPayment === 'CARTAO' || upperPayment === 'BOLETO' || upperPayment === 'CARTÃO') {
-                carregarDadosCarrinho();
+                if(localStorage.getItem('total') && localStorage.getItem('cartId')) {
+                    carregarDadosCarrinho();
+                }else{
+                    swal('Você precisa criar um carrinho para finalizar o pedido!');
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 500);
+                }
             }else{
                 swal('Insira um tipo de pagamento válido');
                 setTimeout(() => {

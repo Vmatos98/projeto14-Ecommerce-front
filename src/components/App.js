@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from "react";
 
 import TelaInicial from './TelaInicial';
-// import Top from './Top/index';
 import Cart from './Carrinho/index';
 import ProductScreen from './TelaProduto/index';
 import TelaCadastro from './TelaCadastro';
@@ -28,7 +27,6 @@ function App() {
         <ContextTokenUsuario.Provider value={{token, setToken}}>
             <ContextFiltroPesquisa.Provider value={{filtroPesquisa, setFiltroPesquisa}}>
                 <ContextDadosCheckout.Provider value={{dadosCheckout, setDadosCheckout}}>
-                    {/* <Top /> */}
                     <BrowserRouter>
                         <Routes>
                             <Route path="/" element={<TelaInicial />} />
