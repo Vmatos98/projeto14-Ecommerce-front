@@ -23,7 +23,6 @@ function ProductScreen(){
             }
         }
         getData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     function addToCart(){
@@ -78,4 +77,5 @@ function ProductScreen(){
         </>
     );
 }
+
 export default ProductScreen;

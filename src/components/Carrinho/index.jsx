@@ -90,16 +90,16 @@ function Cart(){
                         <td><h1>Total</h1></td>
                         <td className="delete"></td></tr>
                         {console.log(productsCart)}
-                        { productsCart.map(product => (
-                            
-                            <tr><td className="itens"> <img src={product.image} alt=""/>
-                            <p className="name">{product.name}</p></td>
-                            <td><p>R$ {product.price}</p></td>
-                            <td><input type="number" value={product.amount} onChange={e=>newAmount(e.target.value, product._id)} /></td>
-                            <td><p>R$ {(product.amount * product.price).toFixed(2)}</p></td>
-                            <td className="delete"><p className="delete" onClick={()=>removeItem(product._id)}>x</p></td></tr>
-                            
-                        ))}
+                        { 
+                            productsCart.map(product => (
+                                <tr><td className="itens"> <img src={product.image} alt=""/>
+                                <p className="name">{product.name}</p></td>
+                                <td><p>R$ {product.price}</p></td>
+                                <td><input type="number" value={product.amount} onChange={e=>newAmount(e.target.value, product._id)} /></td>
+                                <td><p>R$ {(product.amount * product.price).toFixed(2)}</p></td>
+                                <td className="delete"><p className="delete" onClick={()=>removeItem(product._id)}>x</p></td></tr> 
+                            ))
+                        }
                     </table>
                 </Carrinho>
                 <Footer>
