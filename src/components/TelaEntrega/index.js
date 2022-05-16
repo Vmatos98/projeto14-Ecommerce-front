@@ -61,8 +61,9 @@ function TelaDadosEntrega() {
                 localStorage.clear();
                 navigate('/');
                 setTimeout(() => {
+                    swal.close();
                     window.location.reload();
-                } , 800);
+                } , 1200);
             } catch (error) {
                 swal('Erro ao realizar a compra!');
                 setTimeout(() => {
