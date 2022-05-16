@@ -34,6 +34,7 @@ function Top(){
             createCart();
         }
         getAmount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     console.log(filtroPesquisa); //apagar
