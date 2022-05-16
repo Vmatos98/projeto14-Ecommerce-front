@@ -12,7 +12,7 @@ import { ThreeDots } from 'react-loader-spinner';
 import { Container } from '../TelaCadastro/style.js';
 
 function TelaFinalizacao() {
-    const arrayInputs = ['XXX.XXX.XXX-XX', '(XX) XXXXX-XXXX', 'Dinheiro ou Cartão'];
+    const arrayInputs = ['XXX.XXX.XXX-XX', '(XX) XXXXX-XXXX', 'Dinheiro, Cartão ou Boleto'];
     const { dadosCheckout, setDadosCheckout } = useContext(ContextDadosCheckout);
     const [loading, setLoading] = useState(false);
     const [disabled, setDisabled] = useState(false);
@@ -25,12 +25,26 @@ function TelaFinalizacao() {
     }
 
     async function carregarDadosCarrinho() {
-        setDisabled(true);
-        setLoading(true);
-
         try {
             const response = await axios.get(`http://localhost:5000/chechout/cart/`); //http://localhost:5000/chechout/cart/${id}
             setDadosCheckout({...dadosCheckout, products: response.data});
+            
+            //pegar o total
+            // const total = response.data.reduce((acc, cur) => {
+            //     return acc + cur.price;
+            // }, 0);
+            
+            if(response.data.length === 0){
+                swal('Seu carrinho está vazio!');
+                setTimeout(()=>{
+                    navigate('/');
+                }, 800);
+            }else{
+                setTimeout(() => {
+                    //localStorage.setItem('dadosCheckout', JSON.stringify(dadosCheckout)); //arrumar
+                    navigate('/checkout/delivery');
+                }, 800);
+            }
         } catch (error) {
             swal('Erro ao carregar dados do carrinho');
             setTimeout(() => {
@@ -43,17 +57,29 @@ function TelaFinalizacao() {
 
     function avancarParaEntrega(e) {
         e.preventDefault();
+        setDisabled(true);
+        setLoading(true);
 
         const { cpf, phone, typePayment } = dadosCheckout;
         if(cpf && phone && typePayment) {
-            carregarDadosCarrinho();
-            setTimeout(() => {
-                localStorage.setItem('dadosCheckout', JSON.stringify(dadosCheckout));
-                navigate('/checkout/delivery');
-            }, 800);
+            const upperPayment = typePayment.toUpperCase();
+            console.log(upperPayment); //apagar
+
+            if(upperPayment === 'DINHEIRO' || upperPayment === 'CARTAO' || upperPayment === 'BOLETO' || upperPayment === 'CARTÃO') {
+                carregarDadosCarrinho();
+            }else{
+                swal('Insira um tipo de pagamento válido');
+                setTimeout(() => {
+                    setDisabled(false);
+                    setLoading(false);
+                    setDadosCheckout({...dadosCheckout, typePayment: ''});
+                }, 800);
+            }
         }else{
             swal('Para avançar, é necessário preencher os campos');
             setTimeout(() => {
+                setDisabled(false);
+                setLoading(false);
                 limparDados();
             }, 800);
         }

@@ -1,5 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import swal from 'sweetalert';
 
 import ContextDadosCheckout from '../../context/dadosCheckout.js';
 
@@ -16,19 +18,49 @@ function TelaDadosEntrega() {
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
 
+    function limparDados() {
+        setDadosCheckout({
+            ...dadosCheckout, street: '', city: '', state: '', country: '', cep: '',
+        });
+    }
+
+    async function confirmarVendaProdutos(){
+        try {   
+            console.log(dadosCheckout);
+            await axios.post('http://localhost:5000/checkout', dadosCheckout, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            // localStorage.setItem('dadosCheckout', JSON.stringify(dadosCheckout)); //arrumar
+            swal('Compra realizada com sucesso!');
+            setTimeout(() => {
+                navigate('/');
+            } , 800);
+        } catch (error) {
+            swal('Erro ao realizar a compra!');
+            setTimeout(() => {
+                navigate('/');
+            } , 800);
+        }
+    }
+
     function postCheckoutCompra(e){
         e.preventDefault();
-
         setDisabled(true);
         setLoading(true);
-        console.log(dadosCheckout);
 
-        localStorage.setItem('dadosCheckout', JSON.stringify(dadosCheckout));
-
-        //garantir que todos os campos estão preenchidos
-        //salvar no localStorage
-        //get dos produtos do carrinho e valor total
-        //post do pedido em collection 'sale'
+        const { street, city, state, country, cep } = dadosCheckout;
+        if(street && city && state && country && cep){
+            confirmarVendaProdutos();
+        }else{
+            swal('Preencha todos os campos!');
+            setTimeout(() => {
+                setDisabled(false);
+                setLoading(false);
+                limparDados();
+            } , 800);
+        }
     }
     
     console.log(dadosCheckout); //apagar
