@@ -3,13 +3,13 @@ import axios from "axios";
 import swal from "sweetalert";
 
 import Categoria from "../Categoria/index.js";
-import Paragrafo from "../utils/Paragrafo.js";
 import ProdutosEncontrados from "../ProdutosEncontrados.js";
 import Top from '../Top/index.jsx';
 
 import ContextFiltroPesquisa from "../../context/filtroPesquisa.js";
 
 import { Container, Main } from "./style.js";
+import TelaLoading from "../Loading/index.js";
 
 function TelaInicial() {
     const [produtosBanco, setProdutosBanco] = useState([]);
@@ -53,7 +53,7 @@ function TelaInicial() {
                         </nav>
                         : 
                         <aside>
-                            <Paragrafo conteudo="E-commerce em manutenção, volte novamente mais tarde!" />
+                            <TelaLoading />
                         </aside>
                     }
                 </Main>

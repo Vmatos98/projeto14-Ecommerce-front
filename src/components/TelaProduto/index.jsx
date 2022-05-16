@@ -23,6 +23,7 @@ function ProductScreen(){
             }
         }
         getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     function addToCart(){
@@ -71,7 +72,6 @@ function ProductScreen(){
                     <div>
                         <Button onClick={()=>{addToCart()}}>Adicionar ao carrinho</Button>
                     </div>
-
                 </Description>
             </Section>
         </>

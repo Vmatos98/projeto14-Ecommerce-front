@@ -23,6 +23,7 @@ function Cart(){
             }
         }
         getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function newAmount(e, id){

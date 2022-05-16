@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import TelaLoading from './Loading';
 
 function ProdutosEncontrados(props) {
     const { dados } = props;
@@ -21,7 +22,7 @@ function ProdutosEncontrados(props) {
                 })
                 : 
                 <div className="nao-encontrados">
-                    <p>Não encontrados produtos com este filtro em nosso banco de dados</p>
+                    <TelaLoading />
                     <strong>Clique no ícone de pesquisar</strong>
                 </div>
             }
