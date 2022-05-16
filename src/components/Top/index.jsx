@@ -1,10 +1,12 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import swal from "sweetalert";
+
+import ContextFiltroPesquisa from "../../context/filtroPesquisa";
+
 import { Header, Search, User } from "./../Style/Top";
 import Logo from "../../Assets/img/logoPrincipal.jpg";
-import ContextFiltroPesquisa from "../../context/filtroPesquisa";
-import swal from "sweetalert";
 
 function Top(){
     const navigate = useNavigate();
@@ -14,48 +16,27 @@ function Top(){
     const [search, setSearch] = useState('');
     const [amount, setAmount] = useState('');
     const cartId = localStorage.getItem("cartId");
+    
     useEffect(() => {
-        
-            const createCart = async() =>{
-                try{
-                const response = await axios.post(`${URL}/cart/create`);
-                localStorage.setItem("cartId", response.data);
-                }catch(err){
-                    console.log(err);
-                }
+        const createCart = async() =>{
+            try{
+            const response = await axios.post(`${URL}/cart/create`);
+            localStorage.setItem("cartId", response.data);
+            }catch(err){
+                console.log(err);
             }
-            const getAmount = async() =>{
-                const response = await axios.get(`${URL}/cart/amount/${cartId}`);
-                setAmount(response.data);
+        }
+        const getAmount = async() =>{
+            const response = await axios.get(`${URL}/cart/amount/${cartId}`);
+            setAmount(response.data);
+        }
+        if(!cartId){
+            createCart();
+        }
+        getAmount();
+    }, []);
 
-            }
-            if(!cartId){
-                createCart();
-            }
-            getAmount();
-        }, []);
-
-                // document.location.reload(true);
-    // const cartId = localStorage.getItem("cartId");
-    // const [amount, setAmount] = useState('');
-    // useEffect(() => {
-        
-    //         const createCart = async() =>{
-    //             const response = await axios.post(`${URL}/cart/create`);
-    //             localStorage.setItem("cartId", response.data);
-    //         }
-    //         const getAmount = async() =>{
-    //             const response = await axios.get(`${URL}/cart/amount/${cartId}`);
-    //             setAmount(response.data);
-    //         }
-    //         if(!cartId){
-    //             createCart();
-    //             document.location.reload(true);
-    //         }
-
-    //         getAmount();
-    // }, []);
-    console.log(filtroPesquisa);
+    console.log(filtroPesquisa); //apagar
 
     async function getProdutosFiltrados(){
         try {
@@ -84,7 +65,7 @@ function Top(){
 
     return (
         <Header>
-            <img src={Logo} alt="Logo" onClick={()=>{setFiltroPesquisa(null)}}/>
+            <img src={Logo} alt="Logo" onClick={()=>{setFiltroPesquisa(null); navigate('/')}}/>
             <Search>
                 <input type="text" name="input" placeholder="Pesquisar" value={search} 
                 onChange={(e)=>{
@@ -94,11 +75,11 @@ function Top(){
             </Search>
             <User>
                 <div>
-                <ion-icon name="cart-outline" onClick={()=>cart()}></ion-icon>
-                <p>{amount}</p>
+                    <ion-icon name="cart-outline" onClick={()=>cart()}></ion-icon>
+                    <p>{amount}</p>
                 </div>
                 <div>
-                <ion-icon name="person-circle-outline"></ion-icon>
+                    <ion-icon name="person-circle-outline" onClick={()=>navigate('/sign-in')}></ion-icon>
                 </div>
             </User>
         </Header>

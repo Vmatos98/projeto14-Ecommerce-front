@@ -42,6 +42,17 @@ export const Container = styled.section`
             width: 100%;
             height: auto;
             margin-top: 24px;
+
+            strong{
+                width: 100%;
+                height: 30px;
+                display: inline-block;
+                font-weight: 600;
+                font-size: 15px;
+                line-height: 18px;
+                color: #FFFFFF;
+                margin-top: 5px;
+            }
     
             input{
                 width: 100%;
@@ -99,5 +110,13 @@ export const Container = styled.section`
             color: #FFFFFF;
             margin-top: 12px;
         }
+    }
+
+    .info-user{
+        margin: 0;
+    }
+
+    .botao.info{
+        margin-top: 20px;
     }
 `;
