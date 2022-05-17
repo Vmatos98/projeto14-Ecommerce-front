@@ -15,8 +15,16 @@ export const Container = styled.div`
         align-items: center;
 
         img{
-            width: 30%;
+            width: 10%;
             height: auto;
+        }
+    }
+
+    @media (max-width: 425px){
+        section{
+            img{
+                width: 20%;
+            }
         }
     }
 `;
