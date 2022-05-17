@@ -21,9 +21,9 @@ export const Container = styled.div`
     }
 
     @media (max-width: 425px){
-        section{
+        section{ 
             img{
-                width: 20%;
+                width: 15%;
             }
         }
     }
