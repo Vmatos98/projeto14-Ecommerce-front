@@ -27,7 +27,7 @@ function TelaFinalizacao() {
     async function carregarDadosCarrinho() {
         
         try { 
-            const response = await axios.get(`https://ecommerce-back-driven.herokuapp.com/cart/checkout/${localStorage.getItem('cartId')}`);
+            const response = await axios.get(`http://localhost:5000/cart/checkout/${localStorage.getItem('cartId')}`);
             setDadosCheckout({...dadosCheckout, products: response.data});
             console.log(response.data);
             

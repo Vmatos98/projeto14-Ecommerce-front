@@ -18,7 +18,7 @@ function TelaInicial() {
 
     async function getProdutosMongo() {
         try {
-            const response = await axios.get("https://ecommerce-back-driven.herokuapp.com/products");
+            const response = await axios.get("http://localhost:5000/products");
             setProdutosBanco(response.data);
         } catch (error) {
             console.log(error);

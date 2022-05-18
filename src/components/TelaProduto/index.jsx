@@ -7,6 +7,7 @@ import {Section, Header, Category, Content, Description, Button} from "./../Styl
 import Top from "../Top";
 
 function ProductScreen(){
+    const URL = 'http://localhost:5000';
     const [product, setProduct] = useState({});
     const cartId = localStorage.getItem("cartId");
     const {id} = useParams();
@@ -16,7 +17,7 @@ function ProductScreen(){
     useEffect(() => {
         const getData = async() =>{
             try{
-            const response = await axios.get(`https://ecommerce-back-driven.herokuapp.com/products/${id}`); ///products/:id
+            const response = await axios.get(`${URL}/products/${id}`); ///products/:id
             setProduct(response.data);
             console.log(response.data);
             }catch(err){
@@ -37,7 +38,7 @@ function ProductScreen(){
         product.amount = 1;
         const getData = async() =>{
             try{
-            await axios.post(`http://localhost:5000/cart/add/${cartId}`, data);
+            await axios.post(`${URL}/cart/add/${cartId}`, data);
             document.location.reload(true);
             }catch(err){
                 console.log(err);

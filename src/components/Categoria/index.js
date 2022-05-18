@@ -23,7 +23,7 @@ function Categoria(props) {
                 }
             </div>
         </section>
-     );
+    );
 }
 
 export default Categoria;

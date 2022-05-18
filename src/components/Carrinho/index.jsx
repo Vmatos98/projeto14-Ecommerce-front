@@ -7,7 +7,7 @@ import Top from "../Top";
 import swal from "sweetalert";
 
 function Cart(){
-    const URL = 'https://ecommerce-back-driven.herokuapp.com';
+    const URL = 'http://localhost:5000';
     const cartId = localStorage.getItem("cartId");
     const [productsCart, setProductsCart] = useState([]);
     const [amount, setAmount] = useState({});

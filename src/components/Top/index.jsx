@@ -12,7 +12,7 @@ function Top(){
     const navigate = useNavigate();
     const { filtroPesquisa, setFiltroPesquisa } = useContext(ContextFiltroPesquisa);
 
-    const URL = 'https://ecommerce-back-driven.herokuapp.com';
+    const URL = 'http://localhost:5000';
     const [search, setSearch] = useState('');
     const [amount, setAmount] = useState('');
     const cartId = localStorage.getItem("cartId");

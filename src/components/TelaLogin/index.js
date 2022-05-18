@@ -31,7 +31,7 @@ function TelaLogin() {
     }
 
     async function getItemCarrinho(){
-        const response = await axios.get(`https://ecommerce-back-driven.herokuapp.com/cart/amount/${localStorage.getItem('cartId')}`);
+        const response = await axios.get(`http://localhost:5000/cart/amount/${localStorage.getItem('cartId')}`);
         setItemCarrinho(response.data);
     }
 
