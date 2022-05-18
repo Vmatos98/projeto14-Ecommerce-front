@@ -72,7 +72,7 @@ function ProductScreen(){
                 <Description>
                     <p>{product.description}</p>
                     <br></br>
-                    <p className="price">por <span>R${ Number(product.price) && Number(product.price).toFixed(2) }</span> 
+                    <p className="price">por <span>R${ Number(product.price).toFixed(2).replace('.', ',') }</span> 
                     ou 10x de R${ Number(product.price/10).toFixed(3).replace('.', ',') }</p>
                     <div>
                         <Button onClick={()=>{addToCart()}}>Adicionar ao carrinho</Button>

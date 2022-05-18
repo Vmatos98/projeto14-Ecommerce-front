@@ -44,7 +44,7 @@ function TelaDadosEntrega() {
     }
 
     async function confirmarVendaProdutos(){
-        if(dadosCheckout.products.length === 0 && JSON.parse(localStorage.getItem('products')).length === 0){
+        if(dadosCheckout.products.length === 0){
             swal('Seu carrinho está vazio!');
             setTimeout(()=>{
                 navigate('/');
@@ -60,7 +60,7 @@ function TelaDadosEntrega() {
                     state: dadosCheckout.state ? dadosCheckout.state : localStorage.getItem('state'),
                     country: dadosCheckout.country ? dadosCheckout.country : localStorage.getItem('country'),
                     cep: dadosCheckout.cep ? dadosCheckout.cep : localStorage.getItem('cep'),
-                    products: dadosCheckout.products ? dadosCheckout.products : JSON.parse(localStorage.getItem('products')),
+                    products: dadosCheckout.products,
                     total: localStorage.getItem('total'),
                 }
     

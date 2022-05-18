@@ -40,7 +40,6 @@ function TelaFinalizacao() {
         
         try { 
             const response = await axios.get(`${URL}/cart/checkout/${localStorage.getItem('cartId')}`);
-            setDadosCheckout({...dadosCheckout, products: response.data});
             
             if(response.data.length === 0){
                 swal('Seu carrinho está vazio!');
@@ -48,6 +47,7 @@ function TelaFinalizacao() {
                     navigate('/');
                 }, 800);
             }else{
+                setDadosCheckout({...dadosCheckout, products: response.data});
                 setTimeout(() => {
                     localStorage.setItem('cpf', dadosCheckout.cpf);
                     localStorage.setItem('phone', dadosCheckout.phone);
@@ -64,6 +64,7 @@ function TelaFinalizacao() {
             }, 500);
         }
     }
+    console.log(dadosCheckout);
 
     function avancarParaEntrega(e) {
         e.preventDefault();
