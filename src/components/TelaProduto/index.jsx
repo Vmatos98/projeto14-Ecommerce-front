@@ -2,16 +2,19 @@
 import { useState, useEffect} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import swal from "sweetalert";
 
 import {Section, Header, Category, Content, Description, Button} from "./../Style/Produto";
 import Top from "../Top";
 
+// import dotenv from "dotenv";
+// dotenv.config();
+
 function ProductScreen(){
-    const URL = 'http://localhost:5000';
+    const URL = 'https://ecommerce-back-driven.herokuapp.com';
     const [product, setProduct] = useState({});
     const cartId = localStorage.getItem("cartId");
     const {id} = useParams();
-    console.log(id);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,12 +22,13 @@ function ProductScreen(){
             try{
             const response = await axios.get(`${URL}/products/${id}`); ///products/:id
             setProduct(response.data);
-            console.log(response.data);
             }catch(err){
+                swal('Erro ao carregar dados do produto');
                 console.log(err);
             }
         }
         getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     function addToCart(){
@@ -34,13 +38,13 @@ function ProductScreen(){
             amount: 1,
             image: product.image
         }
-        console.log(product);
         product.amount = 1;
         const getData = async() =>{
             try{
-            await axios.post(`${URL}/cart/add/${cartId}`, data);
-            document.location.reload(true);
+                await axios.post(`${URL}/cart/add/${cartId}`, data);
+                document.location.reload(true);
             }catch(err){
+                swal('Erro ao adicionar produto ao carrinho');
                 console.log(err);
             }
         }
@@ -68,12 +72,11 @@ function ProductScreen(){
                 <Description>
                     <p>{product.description}</p>
                     <br></br>
-                    <p className="price">por <span>R${ Number(product.price) && Number(product.price).toFixed(2) }</span> 
+                    <p className="price">por <span>R${ Number(product.price).toFixed(2).replace('.', ',') }</span> 
                     ou 10x de R${ Number(product.price/10).toFixed(3).replace('.', ',') }</p>
                     <div>
                         <Button onClick={()=>{addToCart()}}>Adicionar ao carrinho</Button>
                     </div>
-
                 </Description>
             </Section>
         </>

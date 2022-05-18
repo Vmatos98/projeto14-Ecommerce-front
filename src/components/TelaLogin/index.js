@@ -11,7 +11,11 @@ import ContextTokenUsuario from '../../context/tokenUsuario.js';
 
 import { Container } from "../TelaCadastro/style.js";
 
+// import dotenv from 'dotenv';
+// dotenv.config();
+
 function TelaLogin() {
+    const URL = 'https://ecommerce-back-driven.herokuapp.com';
     const arrayInputs = ['E-mail', 'Senha'];
     const [dadosLogin, setDadosLogin] = useState({
         email: '', password: ''
@@ -22,8 +26,6 @@ function TelaLogin() {
     const { setToken } = useContext(ContextTokenUsuario);
     const [itemCarrinho, setItemCarrinho] = useState(null);
 
-    console.log(dadosLogin); //apagar
-
     function limparDados() {
         setDadosLogin({
             email: '', password: ''
@@ -31,21 +33,22 @@ function TelaLogin() {
     }
 
     async function getItemCarrinho(){
-        const response = await axios.get(`http://localhost:5000/cart/amount/${localStorage.getItem('cartId')}`);
+        const response = await axios.get(`${URL}/cart/amount/${localStorage.getItem('cartId')}`);
         setItemCarrinho(response.data);
     }
 
     useEffect(() => {
         getItemCarrinho();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     async function postDadosLogin() {
-      try {
+    try {
         const objetoLogin = {
             email: dadosLogin.email.trim(),
             password: dadosLogin.password
         };
-        const response = await axios.post('http://localhost:5000/sign-in', objetoLogin);
+        const response = await axios.post(`${URL}/sign-in`, objetoLogin);
         
         setToken(response.data);
         localStorage.setItem('token', response.data);

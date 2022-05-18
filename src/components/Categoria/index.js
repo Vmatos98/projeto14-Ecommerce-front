@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function Categoria(props) {
     const { dados, categoria, id } = props;
-    console.log(dados);
+
     return ( 
         <section id={id}>
             <h1>{categoria}</h1>

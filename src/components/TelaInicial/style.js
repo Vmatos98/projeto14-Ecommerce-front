@@ -7,8 +7,8 @@ const Container = styled.section`
     top: 0;
     left: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: rgba(255,100,14,.5);
     overflow-y: scroll;
+    background-color: #ececec;
 `;
 
 const Main = styled.main`
@@ -34,7 +34,8 @@ const Main = styled.main`
             p{
                 width: 70%;
                 height: 35px;
-                background-color: rgba(255,100,14,.6);
+                background-color: green;
+                opacity: 0.8;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -61,7 +62,8 @@ const Main = styled.main`
         p{
             width: 70%;
             height: 40px;
-            background-color: rgba(255,100,14,.6);
+            background-color: green;
+            opacity: 0.8;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -86,10 +88,10 @@ const Main = styled.main`
 
         @keyframes neon{
             from{
-                filter: drop-shadow(0 0 10px #ff3366);
+                filter: drop-shadow(0 0 10px #ececec);
             }
             to{
-                filter: drop-shadow(0 0 40px red);
+                filter: drop-shadow(0 0 40px green);
             }
         }
         
@@ -104,7 +106,8 @@ const Main = styled.main`
             line-height: 18px;
             color: #FFFFFF;
             margin-top: 30px;
-            background-color: rgba(255,100,14,.6);
+            background-color: green;
+            opacity: 0.8;
             border-radius: 5px;
             font-weight: 700;
             font-size: 18px;
@@ -168,10 +171,12 @@ const Main = styled.main`
         height: auto;
         margin-bottom: 20px;
 
+        #televisores, #smartphones, #eletrodomesticos{
+            margin-top: 25px;
+        }
+
         section{
             width: 100%;
-            height: auto;
-            margin-top: 20px;
             border-radius: 10px;
 
             h1{
@@ -188,7 +193,8 @@ const Main = styled.main`
                 letter-spacing: 0.02em;
                 text-transform: uppercase;
                 color: #FFFAFA;
-                background: rgba( 255, 255, 255, 0.35 );
+                background: green;
+                opacity: 0.8;
                 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
                 backdrop-filter: blur( 13.5px );
                 -webkit-backdrop-filter: blur( 13.5px );

@@ -8,7 +8,7 @@ export const Container = styled.section`
     top: 0;
     left: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: rgba(255,100,14,.5);
+    background-color: #ececec;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,7 +24,7 @@ export const Container = styled.section`
         font-size: 30px;
         line-height: 23px;
         letter-spacing: 0.02em;
-        color: #FFFFFF;
+        color: green;
         font-family: 'Bebas Neue', cursive;
         text-transform: uppercase;
     }
@@ -50,7 +50,7 @@ export const Container = styled.section`
                 font-weight: 600;
                 font-size: 15px;
                 line-height: 18px;
-                color: #FFFFFF;
+                color: green;
                 margin-top: 5px;
             }
     
@@ -81,7 +81,8 @@ export const Container = styled.section`
             button{
                 width: 100%;
                 height: 46px;
-                background-color: rgba(255,100,14,.6);
+                background-color: green;
+                opacity: 0.8;
                 border-radius: 5px;
                 font-weight: 700;
                 font-size: 20px;
@@ -107,7 +108,7 @@ export const Container = styled.section`
             font-weight: 700;
             font-size: 15px;
             line-height: 18px;
-            color: #FFFFFF;
+            color: green;
             margin-top: 12px;
         }
     }

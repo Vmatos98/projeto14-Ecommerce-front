@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert';
 
@@ -11,12 +11,24 @@ import ContextDadosCheckout from '../../context/dadosCheckout.js';
 import { ThreeDots } from 'react-loader-spinner';
 import { Container } from '../TelaCadastro/style.js';
 
+// import dotenv from 'dotenv';
+// dotenv.config();
+
 function TelaFinalizacao() {
+    const URL = 'http://localhost:5000';
     const arrayInputs = ['XXX.XXX.XXX-XX', '(XX) XXXXX-XXXX', 'Dinheiro, Cartão ou Boleto'];
     const { dadosCheckout, setDadosCheckout } = useContext(ContextDadosCheckout);
     const [loading, setLoading] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if(!localStorage.getItem('token') || !localStorage.getItem('cartId')){
+            swal('Você não está logado!');
+            navigate('/');
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     function limparDados() {
         setDadosCheckout({
@@ -27,7 +39,7 @@ function TelaFinalizacao() {
     async function carregarDadosCarrinho() {
         
         try { 
-            const response = await axios.get(`http://localhost:5000/cart/checkout/${localStorage.getItem('cartId')}`);
+            const response = await axios.get(`${URL}/cart/checkout/${localStorage.getItem('cartId')}`);
             setDadosCheckout({...dadosCheckout, products: response.data});
             console.log(response.data);
             
@@ -37,11 +49,11 @@ function TelaFinalizacao() {
                     navigate('/');
                 }, 800);
             }else{
+                setDadosCheckout({...dadosCheckout, products: response.data});
                 setTimeout(() => {
                     localStorage.setItem('cpf', dadosCheckout.cpf);
                     localStorage.setItem('phone', dadosCheckout.phone);
                     localStorage.setItem('typePayment', dadosCheckout.typePayment);
-                    localStorage.setItem('products', JSON.stringify(dadosCheckout.products));
                     navigate('/checkout/delivery');
                 }, 800);
             }
@@ -54,6 +66,7 @@ function TelaFinalizacao() {
             }, 500);
         }
     }
+    console.log(dadosCheckout);
 
     function avancarParaEntrega(e) {
         e.preventDefault();
@@ -63,7 +76,6 @@ function TelaFinalizacao() {
         const { cpf, phone, typePayment } = dadosCheckout;
         if(cpf && phone && typePayment) {
             const upperPayment = typePayment.toUpperCase();
-            console.log(upperPayment); //apagar
 
             if(upperPayment === 'DINHEIRO' || upperPayment === 'CARTAO' || upperPayment === 'BOLETO' || upperPayment === 'CARTÃO') {
                 if(localStorage.getItem('total') && localStorage.getItem('cartId')) {
@@ -91,8 +103,6 @@ function TelaFinalizacao() {
             }, 800);
         }
     }
-
-    console.log(dadosCheckout); //apagar
 
     return ( 
         <Container>

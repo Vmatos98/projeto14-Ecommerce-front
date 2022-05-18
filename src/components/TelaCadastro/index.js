@@ -9,7 +9,11 @@ import Paragrafo from '../utils/Paragrafo.js';
 
 import { Container } from "./style";
 
+// import dotenv from 'dotenv';
+// dotenv.config();
+
 function TelaCadastro() {
+    const URL = 'https://ecommerce-back-driven.herokuapp.com';
     const arrayInputs = ['Nome', 'E-mail', 'Senha', 'Confirme a senha']
     const [dadosCadastro, setDadosCadastro] = useState({
         name: '', email: '', password: '', confirmPassword: ''
@@ -17,8 +21,6 @@ function TelaCadastro() {
     const [loading, setLoading] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
-
-    console.log(dadosCadastro); //apagar
 
     function limparDados() {
         setDadosCadastro({
@@ -35,7 +37,7 @@ function TelaCadastro() {
                 password: password,
                 confirmPassword: confirmPassword
             }
-            await axios.post('http://localhost:5000/sign-up', objetoCadastro);
+            await axios.post(`${URL}/sign-up`, objetoCadastro);
             swal(`${name}, seu cadastro foi realizado com sucesso`);
             setTimeout(() => {
                 limparDados();

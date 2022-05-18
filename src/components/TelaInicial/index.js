@@ -3,22 +3,25 @@ import axios from "axios";
 import swal from "sweetalert";
 
 import Categoria from "../Categoria/index.js";
-import Paragrafo from "../utils/Paragrafo.js";
 import ProdutosEncontrados from "../ProdutosEncontrados.js";
 import Top from '../Top/index.jsx';
 
 import ContextFiltroPesquisa from "../../context/filtroPesquisa.js";
 
 import { Container, Main } from "./style.js";
+import TelaLoading from "../Loading/index.js";
+
+// import dotenv from "dotenv";
+// dotenv.config();
 
 function TelaInicial() {
+    const URL = 'https://ecommerce-back-driven.herokuapp.com';
     const [produtosBanco, setProdutosBanco] = useState([]);
     const { filtroPesquisa } = useContext(ContextFiltroPesquisa);
-    console.log(filtroPesquisa); //apagar
 
     async function getProdutosMongo() {
         try {
-            const response = await axios.get("http://localhost:5000/products");
+            const response = await axios.get(`${URL}/products`);
             setProdutosBanco(response.data);
         } catch (error) {
             console.log(error);
@@ -28,6 +31,7 @@ function TelaInicial() {
 
     useEffect(()=>{
         getProdutosMongo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const televisores = produtosBanco.filter(produto => produto.category === "televisores");
@@ -53,7 +57,7 @@ function TelaInicial() {
                         </nav>
                         : 
                         <aside>
-                            <Paragrafo conteudo="E-commerce em manutenção, volte novamente mais tarde!" />
+                            <TelaLoading />
                         </aside>
                     }
                 </Main>
